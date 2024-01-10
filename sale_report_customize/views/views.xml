@@ -9,44 +9,10 @@
                 <style>
                     @import url('https://fonts.googleapis.com/css2?family=Scheherazade&amp;display=swap');
                 </style>
-                <div class="header" style="font-family: 'Scheherazade', serif;font-size:17px;font-weight:bold;">
-                    <div class="row text-right" dir="rtl">
-                        <div class="col-4">
-                            <h2 class="text-center"
-                                style="font-family: 'Scheherazade', serif;font-size:40px;font-weight:bold">عرض سعر
-                            </h2>
-                            <span style="font-family: 'Scheherazade', serif;font-size:20px;line-height:0.5px;"
-                                  t-field="doc.company_id.name"/>
-                            <span style="font-family: 'Scheherazade', serif;font-size:20px;line-height:0.5px;"
-                                  t-field="doc.company_id.city"/>
-                            -
-                            <span style="font-family: 'Scheherazade', serif;font-size:20px;line-height:0.5px;"
-                                  t-field="doc.company_id.country_id.name"/>
-                            <br></br>
-                            - الرقم الضريبى :
-                            <span style="font-family: 'Scheherazade', serif;font-size:20px;line-height:0.5px;"
-                                  t-field="doc.company_id.vat"/>
-                            <br></br>
-                            - جوال :
-                            <span style="font-family: 'Scheherazade', serif;font-size:20px;line-height:0.5px;"
-                                  t-field="doc.company_id.mobile"/>
-                            <br></br>
-                            - البريد الالكترونى :
-                            <span style="font-family: 'Scheherazade', serif;font-size:20px;line-height:0.5px;"
-                                  t-field="doc.company_id.email"/>
-                            <br></br>
-                        </div>
-                        <div class="col-4">
-                        </div>
-                        <div class="col-4">
-                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
-                                 style="width:220px;height:120px;" alt="Company Logo"/>
-
-<!--                            <img src='/sale_report_customize/static/src/logo/logo.jpeg' alt="Company Logo"-->
-<!--                                 style="width:220px;height:120px;"/>-->
-                        </div>
-                    </div>
+                <div class="header">
+                    <img src='/sale_report_customize/static/src/logo/header.jpg' style="width:920px;height:180px;"/>
                 </div>
+
                 <hr/>
                 <div class="page text-right" dir="rtl"
                      style="font-family: 'Scheherazade', serif;font-size: 20px;margin-left:10px;margin-right:10px">
@@ -74,14 +40,10 @@
                             </strong>
                             <br></br>
                             <strong>تاريخ العرض :
-                                <span t-field="doc.date_order"/>
+                                <span t-esc="doc.date_order.date()"/>
                             </strong>
                             <br></br>
-                            <strong>سارى حتى :
-                                <span t-field="doc.validity_date"/>
-                            </strong>
-                            <br></br>
-                            <strong style="background-color:#d9d9d9;">المبلغ المستحق :
+                            <strong style="background-color:#d9d9d9;">قيمة العرض :
                                 <span t-field="doc.amount_total"/>
                             </strong>
                             <br></br>
@@ -93,24 +55,38 @@
                     <!-- Is there a discount on at least one line? -->
                     <t t-set="lines_to_report" t-value="doc._get_order_lines_to_report()"/>
                     <t t-set="display_discount" t-value="any(l.discount for l in lines_to_report)"/>
+                    <t t-set="discount" t-value="0"/>
+                    <br></br>
                     <table class="table table-bordered" style="font-size:20px;text-align:center" dir="rtl">
                         <!-- In case we want to repeat the header, remove "display: table-row-group" -->
                         <thead style="display: table-row-group;font-weight:bold">
                             <tr>
-                                <th name="th_seq" class="text-start">#</th>
-                                <th name="th_description">المنتج</th>
-                                <th name="th_quantity">الكمية</th>
-                                <th name="th_priceunit">سعر الوحدة</th>
+                                <th name="th_seq" class="text-start"
+                                    style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                    #
+                                </th>
+                                <th name="th_description"
+                                    style="width:45%;border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                    المنتج
+                                </th>
+                                <th name="th_quantity"
+                                    style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                    الكمية
+                                </th>
+                                <th name="th_priceunit"
+                                    style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                    سعر الوحدة
+                                </th>
                                 <th name="th_discount" t-if="display_discount" class="text-end"
-                                    groups="product.group_discount_per_so_line">
-                                    <span>الخصم</span>
+                                    groups="product.group_discount_per_so_line"
+                                    style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                    <span>الخصم%</span>
                                 </th>
-                                <th>
-                                    <span>الاجمالى قبل الضريبة</span>
+                                <th style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                    <span>السعر بعد الخصم</span>
                                 </th>
-
-                                <th name="th_taxes">الضريبة</th>
-                                <th name="th_subtotal">
+                                <th name="th_subtotal"
+                                    style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                     <span groups="account.group_show_line_subtotals_tax_excluded">الاجمالى</span>
                                     <span groups="account.group_show_line_subtotals_tax_included">الاجمالى</span>
                                 </th>
@@ -121,6 +97,7 @@
                             <t t-set="seq" t-value="0"/>
                             <t t-foreach="lines_to_report" t-as="line">
                                 <t t-set="seq" t-value="seq+1"/>
+                                <t t-set="discount" t-value="discount+ line.discount"/>
                                 <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"
                                    groups="account.group_show_line_subtotals_tax_excluded"/>
                                 <t t-set="current_subtotal" t-value="current_subtotal + line.price_total"
@@ -128,31 +105,33 @@
 
                                 <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
                                     <t t-if="not line.display_type">
-                                        <td name="td_seq">
+                                        <td name="td_seq"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-esc="seq"/>
                                         </td>
-                                        <td name="td_name">
+                                        <td name="td_name"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-field="line.name"/>
                                         </td>
-                                        <td name="td_quantity">
+                                        <td name="td_quantity"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-field="line.product_uom_qty"/>
-                                            <span t-field="line.product_uom"/>
                                         </td>
-                                        <td name="td_priceunit">
+                                        <td name="td_priceunit"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-field="line.price_unit"/>
                                         </td>
                                         <td t-if="display_discount"
-                                            groups="product.group_discount_per_so_line">
-                                            <span t-field="line.discount"/>
+                                            groups="product.group_discount_per_so_line"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                            <span t-field="line.discount"/>%
                                         </td>
-                                        <td>
-                                            <span t-esc="line.product_uom_qty * line.price_unit"/>
-                                        </td>
-                                        <td name="td_taxes">
-                                            <span t-out="', '.join(map(lambda x: (x.description or x.name), line.tax_id))"/>
+                                        <td style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                            <span t-esc="line.price_unit - (line.price_unit * (line.discount /100))"/>
                                         </td>
                                         <td t-if="not line.is_downpayment" name="td_subtotal"
-                                            class="text-end o_price_total">
+                                            class="text-end o_price_total"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-field="line.price_subtotal"
                                                   groups="account.group_show_line_subtotals_tax_excluded"/>
                                             <span t-field="line.price_total"
@@ -160,14 +139,16 @@
                                         </td>
                                     </t>
                                     <t t-elif="line.display_type == 'line_section'">
-                                        <td name="td_section_line" colspan="99">
+                                        <td name="td_section_line" colspan="99"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-field="line.name"/>
                                         </td>
                                         <t t-set="current_section" t-value="line"/>
                                         <t t-set="current_subtotal" t-value="0"/>
                                     </t>
                                     <t t-elif="line.display_type == 'line_note'">
-                                        <td name="td_note_line" colspan="99">
+                                        <td name="td_note_line" colspan="99"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-field="line.name"/>
                                         </td>
                                     </t>
@@ -187,47 +168,79 @@
                             </t>
                         </tbody>
                     </table>
-                    <div class="row text-right" dir="ltr">
-                        <div class="col-4">
-                            <strong>الاجمالى قبل الضريبة :
-                                <span t-field="doc.amount_untaxed"/>
-                            </strong>
-                            <br></br>
-                            <strong>اجمالى الضريبة :
-                                <span t-field="doc.amount_tax"/>
-                            </strong>
-                            <br></br>
-                            <strong>المجموع :
-                                <span t-field="doc.amount_total"/>
-                            </strong>
-                            <br></br>
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total" dir="ltr">
+                            <div class="col-6" align="left">
+                                <table class="table table-sm table-borderless">
+                                    <tr class="border-black o_subtotal">
+                                        <td>
+                                            <strong>اجمالى الفاتورة بعد الخصم</strong>
+                                        </td>
+                                        <td class="text-end">
+                                            <span
+                                                    t-att-class="oe_subtotal_footer_separator"
+                                                    t-esc="doc.amount_untaxed"
+                                            />
+                                        </td>
+                                        <td align="right">
+                                            <span>Total invoice After Discount</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black o_subtotal">
+                                        <td>
+                                            <strong>ضريبة القيمة المضاقة 15%</strong>
+                                        </td>
+                                        <td class="text-end">
+                                            <span
+                                                    t-att-class="oe_subtotal_footer_separator"
+                                                    t-esc="doc.amount_tax"
+                                            />
+                                        </td>
+                                        <td align="right">
+                                            <span>Vat 15%</span>
+                                        </td>
+                                    </tr>
 
+                                    <tr class="border-black o_subtotal">
+                                        <td>
+                                            <strong>احمالى الفاتورة بعد الضريبة</strong>
+                                        </td>
+                                        <td class="text-end">
+                                            <span
+                                                    t-att-class="oe_subtotal_footer_separator"
+                                                    t-esc="doc.amount_total"
+                                            />
+                                        </td>
+                                        <td align="right">
+                                            <span>Total Invoice After Vat</span>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div style="font-weight:bold;font-size:25px;line-height:0.5px;">
-                        <p t-field="doc.note" name="order_note"/>
-                        <p t-if="doc.fiscal_position_id and not is_html_empty(doc.fiscal_position_id.sudo().note)"
-                           id="fiscal_position_remark">
-                            <strong>Fiscal Position Remark:</strong>
-                            <span t-field="doc.fiscal_position_id.sudo().note"/>
-                        </p>
-                    </div>
+                    <table style="font-weight:bold;font-size:25px;line-height:0.5px;">
+                        <tr>
+                            <span style="line-height:0.5px!important;" t-field="doc.note" name="order_note"/>
+                        </tr>
+                        <tr>
+                            <span t-if="doc.fiscal_position_id and not is_html_empty(doc.fiscal_position_id.sudo().note)"
+                                  id="fiscal_position_remark">
+                                <strong>Fiscal Position Remark:</strong>
+                                <span style="line-height:0.5px!important;"
+                                      t-field="doc.fiscal_position_id.sudo().note"/>
+                            </span>
+                        </tr>
+
+                    </table>
 
                     <div class="footer" style="font-family: 'Scheherazade', serif;">
-                        <div class="row text-center" dir="rtl">
-                            <div class="col-4">
+                        <div class="row text-center">
+                            <div class="col-12">
+                                <img src='sale_report_customize/static/src/logo/footer.jpg' alt="Footer"
+                                     style="width:1300px;height:120px;margin-right:-90px;"/>
                             </div>
-                            <div class="col-4" style="text-align:center;font-size:25px;">
-                                page
-                                <span class="page"/>
-                                of
-                                <span class="topage"/>
-                                For Quotation
-                                <span t-field="doc.name"/>
-                            </div>
-
-                        </div>
-                        <div class="col-4">
                         </div>
                     </div>
                 </div>
