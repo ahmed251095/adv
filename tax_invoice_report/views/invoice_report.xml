@@ -1,0 +1,895 @@
+<odoo>
+    <data>
+        <template id="invoice_customer_report_new">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+<!--                    <t t-set="o" t-value="o.with_context({'lang':'ar_001'})"/>-->
+                    <t t-set="o" t-value="o.with_context(lang='en_US')"/>
+                    <t t-call="tax_invoice_report.request_transfer_layout_custom">
+                        <div class="page" style="font-family:arial" dir="ltr">
+                            <div class="oe_structure"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div id="informations">
+                                <div class="row">
+                                    <div class="col-2 offset-0">
+                                        <strong style="white-space:nowrap;font-size:12px">Invoice No:
+                                        </strong>
+                                    </div>
+                                    <div class="col-7 text-center">
+                                        <span style=";font-size:12px" t-field="o.name"/>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <strong style="white-space:nowrap;font-size:12px">
+                                            :رقم الفاتوره
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 offset-0">
+                                        <strong style="white-space:nowrap;font-size:12px">Invoice Issue Date.
+                                        </strong>
+                                    </div>
+                                    <div class="col-7 text-center">
+                                        <span style=";font-size:12px" t-field="o.invoice_date"/>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <strong style="white-space:nowrap;font-size:12px">
+                                           :تاريخ إصدار الفاتورة
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 offset-0">
+                                        <strong style="white-space:nowrap;font-size:12px">Date of Supply.
+                                        </strong>
+                                    </div>
+                                    <div class="col-7 text-center">
+                                        <span style=";font-size:12px" t-field="o.l10n_sa_delivery_date"/>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <strong style="white-space:nowrap;font-size:12px">
+                                            :تاريخ التوريد
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row " style="font-weight:bold;font-size:16px;color:white;background-color:#38b0d2">
+                                <div class="col-12 text-center">
+                                    <span>Supplier Details / بيانات المورد</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 offset-0">
+                                    <strong style="white-space:nowrap;font-size:12px">Name.</strong>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <span style=";font-size:12px" t-field="o.company_id.name"/>
+                                </div>
+                                <div class="col-1 text-end">
+                                    <strong style="white-space:nowrap;font-size:12px">:اﻹسم</strong>
+                                </div>
+                                <div class="col-1"/>
+                                <div class="col-1 offset-0"><strong style="white-space:nowrap;font-size:12px">Vat No.</strong></div>
+                                <div class="col-3 text-center"><span style=";font-size:12px" t-field="o.company_id.vat"/></div>
+                                <div class="col-2 text-end"> <strong style="white-space:nowrap;font-size:12px">:الرقم الضريبي</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">Building No.</strong></div>
+                                <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.company_id.street2"/></div>
+                                <div class="col-1 text-end"> <strong style="white-space:nowrap;font-size:12px">:رقم المبني</strong></div>
+                                <div class="col-1"/>
+                                <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">CR Number.</strong></div>
+                                <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.company_id.company_registry"/></div>
+                                <div class="col-2 text-end"> <strong style="white-space:nowrap;font-size:12px">:رقم السجل التجاري</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">Street Name.</strong></div>
+                                <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.company_id.street"/></div>
+                                <div class="col-1 text-end"> <strong style="white-space:nowrap;font-size:12px">:اسم الشارع</strong></div>
+                                <div class="col-1"/>
+                                <div class="col-1 offset-0"><strong style="white-space:nowrap;font-size:12px">Country.</strong></div>
+                                <div class="col-4 text-center"><span style=";font-size:12px" t-field="o.company_id.country_id"/></div>
+                                <div class="col-1 text-end"> <strong style="white-space:nowrap;font-size:12px">:الدولة</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 offset-0"><strong style="white-space:nowrap;font-size:12px">District.</strong></div>
+                                <div class="col-3 text-center"><span style=";font-size:12px" t-field="o.company_id.street"/></div>
+                                <div class="col-1 text-end"> <strong style="white-space:nowrap;font-size:12px">:الحي</strong></div>
+                                <div class="col-1"/>
+                                <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">Postal Code.</strong></div>
+                                <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.company_id.zip"/></div>
+                                <div class="col-2 text-end"> <strong style="white-space:nowrap;font-size:12px">:الرمز البريدي</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 offset-0"><strong style="white-space:nowrap;font-size:12px">City.</strong></div>
+                                <div class="col-3 text-center"><span style=";font-size:12px" t-field="o.company_id.city"/></div>
+                                <div class="col-1 text-end">  <strong style="white-space:nowrap;font-size:12px">:المدينة</strong></div>
+                                <div class="col-1"/>
+                                <div class="col-2 text-left"/>
+                                <div class="col-2 text-center"/>
+                                <div class="col-2 text-right"> </div>
+                            </div>
+                            <div class="row " style="font-weight:bold;font-size:16px;color:white;background-color:#38b0d2">
+                                <div class="col-12 text-center">
+                                    <span>Client Details / بيانات العميل</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 offset-0"><strong style="white-space:nowrap;font-size:12px">Name.</strong></div>
+                                <div class="col-3 text-center"><span style=";font-size:12px" t-field="o.partner_id.name"/></div>
+                                <div class="col-1 text-end"> <strong style="white-space:nowrap;font-size:12px">:الاسم</strong></div>
+                                <div class="col-1"/>
+                                <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">Vat No.</strong></div>
+                                <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.partner_id.vat"/></div>
+                                <div class="col-2 text-end"> <strong style="white-space:nowrap;font-size:12px">:الرقم الضريبي</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 offset-0"><strong style="white-space:nowrap"/></div>
+                                <div class="col-3 text-center"/>
+                                <div class="col-1 text-end"> <strong style="white-space:nowrap"/></div>
+                                <div class="col-1"/>
+                                <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">Vat Group No.</strong></div>
+                                <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.partner_id.vat"/></div>
+                                <div class="col-2 text-end"> <strong style="white-space:nowrap;font-size:12px">:مجموعة الرقم الضريبي</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 offset-0"><strong style="white-space:nowrap;font-size:12px">Address.</strong></div>
+                                <div class="col-3 text-center"><span style=";font-size:12px" t-field="o.partner_id.state_id"/>,<span t-field="o.partner_id.city"/></div>
+                                <div class="col-1 text-end"> <strong style="white-space:nowrap;font-size:12px">:العنوان</strong></div>
+                                <div class="col-1"/>
+                                <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">CR Number.</strong></div>
+                                <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.partner_id.vat"/></div>
+                                <div class="col-2 text-end"> <strong style="white-space:nowrap;font-size:12px">:رقم السجل التجاري</strong></div>
+                            </div>
+
+                        </div>
+                        <div class="row" dir="ltr">
+                            <div class="col-6 offset-0"><span>.</span></div>
+                            <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">Country.</strong></div>
+                            <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.partner_id.country_id"/></div>
+                            <div class="col-2 text-end"> <strong style="white-space:nowrap;font-size:12px">:الدولة</strong></div>
+                        </div>
+                        <div class="row" dir="ltr">
+                            <div class="col-6 offset-0"><span>.</span></div>
+                            <div class="col-2 offset-0"><strong style="white-space:nowrap;font-size:12px">Currency.</strong></div>
+                            <div class="col-2 text-center"><span style=";font-size:12px" t-field="o.partner_id.currency_id"/></div>
+                            <div class="col-2 text-end"> <strong style="white-space:nowrap;font-size:12px">:العملة</strong></div>
+                        </div>
+                        <style>
+                            .dashed-line {
+                                  border: 1px dashed black;
+                                }
+                                }
+                        </style>
+                        <div class="row ">
+
+                            <table width="100%" border="0" dir="ltr">
+                                <thead style="font-weight:bold;font-size:12px;color:white;background-color:#38b0d2">
+                                    <th class="text-center" style="vertical-align:middle">
+                                        <span>Description</span>
+                                        <br/>
+                                        <span>الوصف</span>
+                                    </th>
+                                    <th class="text-center" style="vertical-align:middle">
+                                        <span>Unit Price</span>
+                                        <br/>
+                                        <span>سعر الوحده</span>
+                                    </th>
+                                    <th class="text-center" style="vertical-align:middle">
+                                        <span>Quantity</span>
+                                        <br/>
+                                        <span>الكمية/الفترة</span>
+                                    </th>
+                                    <th class="text-center" style="vertical-align:middle">
+                                        <span>Discount</span>
+                                        <br/>
+                                        <span>خصومات</span>
+                                    </th>
+                                    <th class="text-center" style="vertical-align:middle">
+                                        <span>Taxable Amount</span>
+                                        <br/>
+                                        <span>المبلغ الخاضع للضريبة</span>
+                                    </th>
+                                    <th class="text-center" style="vertical-align:middle">
+                                        <span>Tax Rate</span>
+                                        <br/>
+                                        <span>نسبة الضريبة</span>
+                                    </th>
+                                    <th class="text-center" style="vertical-align:middle">
+                                        <span>Tax Amount</span>
+                                        <br/>
+                                        <span>مبلغ الضريبة</span>
+                                    </th>
+                                    <th class="text-center" style="vertical-align:middle">
+                                        <span>Total Including VAT</span>
+                                        <br/>
+                                        <span>المجموع شامل ضريبة</span>
+                                        <br/>
+                                        <span>القيمه المضافة</span>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                <t t-foreach="o.invoice_line_ids" t-as="line">
+                                    <tr>
+                                        <td class="text-center"><span t-field="line.product_id"/> </td>
+                                        <td class="text-center"><span t-field="line.price_unit"/> </td>
+                                        <td class="text-center"><span t-field="line.quantity"/> </td>
+                                        <td class="text-center"><span t-esc="round(line.quantity*line.price_unit*line.discount/100,2)"/> </td>
+                                        <td class="text-center"><span t-esc="round(line.price_subtotal,2)"/> </td>
+                                        <td class="text-center">
+                                            <span t-if="line.tax_ids" t-esc="line.tax_ids[0].amount"/>%
+                                        </td>
+                                        <td class="text-center"><span t-esc="round(line.price_total-line.price_subtotal,2)"/> </td>
+                                        <td class="text-center"><span t-esc="round(line.price_total,2)"/> </td>
+                                    </tr>
+
+                                </t>
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="dashed-line"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td/>
+                                        <td class="text-center"><span>Total</span></td>
+                                        <td><span/></td>
+                                        <td><span/></td>
+                                        <td class="text-center"><span t-esc="o.amount_untaxed"/><span t-esc="o.currency_id.name"/></td>
+                                        <td><span/></td>
+                                        <td class="text-center"><span t-esc="o.amount_tax"/><span t-esc="o.currency_id.name"/></td>
+                                        <td class="text-center"><span t-esc="o.amount_total"/><span t-esc="o.currency_id.name"/></td>
+                                    </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-1 offset-0">
+                                <strong style="white-space:nowrap"/>
+                            </div>
+                            <div class="col-2 text-end">
+                                <strong style="white-space:nowrap"/>
+                            </div>
+                            <div class="col-6 text-center">
+                                <strong style="font-weight:bold;white-space:nowrap">Local Currency</strong>
+                            </div>
+                            <div class="col-3 text-end"> <strong style="white-space:nowrap"/></div>
+                        </div>
+                        <t t-set="discount" t-value="0"/>
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="discount" t-value="line.quantity*line.price_unit*line.discount/100"/>
+
+                        </t>
+                        <div class="row" style="padding-bottom:5px">
+                            <div class="col-1 offset-0">
+                                <strong style="white-space:nowrap"/>
+                            </div>
+                            <div class="col-2 offset-0">
+                                <strong style="white-space:nowrap;font-size:12px">Total Excluding VAT.</strong>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="row">
+                                    <div class="col-3"/>
+                                    <div class="col-6" style="border: 1px dashed black;">
+                                        <div class="row">
+                                            <div class="col-6 offset-0">
+                                                <span>ريال سعودي</span>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <span t-esc="o.amount_untaxed+discount"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3"/>
+
+                                </div>
+                            </div>
+                            <div class="col-3 text-end" style="font-size:12px"> <strong style="white-space:nowrap">:الإجمالي غير شامل الضريبة</strong></div>
+                        </div>
+                        <div class="row" style="padding-bottom:5px">
+                            <div class="col-1 offset-0">
+                                <strong style="white-space:nowrap"/>
+                            </div>
+                            <div class="col-2 offset-0">
+                                <strong style="white-space:nowrap;font-size:12px">Discount.</strong>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="row">
+                                    <div class="col-3"/>
+                                    <div class="col-6" style="border: 1px dashed black;">
+                                        <div class="row">
+                                            <div class="col-6 offset-0">
+                                                <span>ريال سعودي</span>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <span t-esc="round(discount,2)"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3"/>
+
+                                </div>
+                            </div>
+                            <div class="col-3 text-end" style=" font-size:12px"> <strong style="white-space:nowrap">:مجموع الخصومات</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 offset-0">
+                                <strong style="white-space:nowrap"/>
+                            </div>
+                            <div class="col-2 offset-0">
+                                <strong style="white-space:nowrap;font-size:12px">Total Taxable Amount <br/>(Excluding VAT).</strong>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="row">
+                                    <div class="col-3"/>
+                                    <div class="col-6" style="border: 1px dashed black;">
+                                        <div class="row">
+                                            <div class="col-6 offset-0">
+                                                <span>ريال سعودي</span>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <t t-set="discount" t-value="0"/>
+                                                <t t-foreach="o.invoice_line_ids" t-as="line">
+                                                    <t t-set="discount" t-value="line.quantity*line.price_unit*line.discount/100"/>
+
+                                                </t>
+                                                <span t-esc="o.amount_untaxed"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3"/>
+
+                                </div>
+                            </div>
+                            <div class="col-3 text-end" style=" font-size:12px"> <strong style="white-space:nowrap">:إجمالي المبلغ بعد الخصومات <br/> غير شامل ض.ق.م</strong></div>
+                        </div>
+                        <div class="row" style="padding-bottom:5px">
+
+                            <div class="col-1 offset-0">
+                                <strong style="white-space:nowrap"/>
+                            </div>
+                            <div class="col-2 offset-0">
+                                <strong style="white-space:nowrap;font-size:12px">Total VAT </strong> <span t-esc="', '.join(map(lambda x: (str(x.amount)), o.invoice_line_ids.mapped('tax_ids')))"/><span>%</span>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="row">
+                                    <div class="col-3"/>
+                                    <div class="col-6" style="border: 1px dashed black;">
+                                        <div class="row">
+                                            <div class="col-6 offset-0">
+                                                <span>ريال سعودي</span>
+                                            </div>
+                                            <div class="col-6 text-end">
+
+                                                <span t-esc="o.amount_tax"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3"/>
+
+                                </div>
+                            </div>
+                            <div class="col-3 text-end" style=" font-size:12px"> <strong style="white-space:nowrap"><span t-esc="', '.join(map(lambda x: (str(x.amount)), o.invoice_line_ids.mapped('tax_ids')))"/><span>%</span>  مجموع ض.ق.م</strong></div>
+                        </div>
+                        <div class="row" style="padding-bottom:5px">
+
+                            <div class="col-1 offset-0">
+                                <strong style="white-space:nowrap"/>
+                            </div>
+                            <div class="col-2 offset-0">
+                                <strong style="white-space:nowrap;font-size:12px">Total Amount Due. </strong>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="row">
+                                    <div class="col-3"/>
+                                    <div class="col-6" style="border: 1px dashed black;">
+                                        <div class="row">
+                                            <div class="col-6 offset-0">
+                                                <span>ريال سعودي</span>
+                                            </div>
+                                            <div class="col-6 text-end">
+
+                                                <span t-esc="o.amount_total"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3"/>
+
+                                </div>
+                            </div>
+                            <div class="col-3 text-end" style=" font-size:12px"> <strong style="white-space:nowrap"> :إجمالي المبلغ المستحق</strong></div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-12" style="border:2px solid black">
+                                <div class="row">
+                                    <div class="col-3"/>
+                                    <div class="col-3 offset-0" style="margin-top:5px;"><strong style="white-space:nowrap;font-weight:bold">Bank Details</strong></div>
+                                    <div class="col-2 offset-0" style="margin-top:5px;"><strong style="white-space:nowrap;font-weight:bold">تفاصيل البنك</strong><span style="color:white">...</span></div>
+                                    <div class="col-3"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 offset-0" style="margin-top:5px;margin-left:5px;"><strong style="white-space:nowrap">Bank Name:</strong><span style="color:white">...</span></div>
+                                    <div class="col-4 offset-0">Saudi National Bank</div>
+                                    <div class="col-4 text-end"> البنك الأهلي السعودي</div>
+                                    <div class="col-2 text-end" style="margin-top:5px;margin-right:5px;"><strong style="white-space:nowrap">:إسم البنك</strong><span style="color:white">...</span></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-2 offset-0" style="margin-top:5px;margin-left:5px;"><strong style="white-space:nowrap">IBAN No:</strong></div>
+                                    <div class="col-4 offset-0">SA53100000014000</div>
+                                    <div class="col-4 text-end">SA53100000014000 </div>
+                                    <div class="col-2 text-end" style="margin-top:5px;;margin-right:5px;"><strong style="white-space:nowrap">:رقم الايبان</strong><span style="color:white">...</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 offset-0" style="margin-top:5px;;margin-left:5px;"><strong style="white-space:nowrap">SWIFT:</strong></div>
+                                    <div class="col-4 offset-0">NCBKSAJE</div>
+                                    <div class="col-4 text-end">NCBKSAJE </div>
+                                    <div class="col-2 text-end" style="margin-top:5px;margin-right:5px;"><strong style="white-space:nowrap">:سويفت</strong><span style="color:white">...</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 offset-0" style="margin-top:5px;margin-left:5px;"><strong style="white-space:nowrap">Account Name:</strong></div>
+                                    <div class="col-4 offset-0">Wadi Alkhozama</div>
+                                    <div class="col-4 text-end"> شركة وادي الخزامى الفندقية</div>
+                                    <div class="col-2 text-end" style="margin-top:5px;margin-right:5px;"><strong style="white-space:nowrap">:إسم الحساب</strong><span style="color:white">...</span></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-2 offset-0" style="margin-top:5px;margin-left:5px;"><strong style="white-space:nowrap">Account Number:</strong></div>
+                                    <div class="col-4 offset-0">01400021155906</div>
+                                    <div class="col-4 text-end"> 01400021155906</div>
+                                    <div class="col-2 text-end" style="margin-top:5px;margin-right:5px;"><strong style="white-space:nowrap">:رقم الحساب</strong><span style="color:white">...</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                </t>
+            </t>
+<!--            <t t-call="web.html_container">-->
+<!--                <t t-foreach="docs" t-as="o">-->
+<!--&lt;!&ndash;                    <t t-set="o" t-value="o.with_context({'lang':'ar_001'})"/>&ndash;&gt;-->
+<!--                    <t t-set="o" t-value="o.with_context(lang='en_US')"/>-->
+<!--                    <t t-call="tax_invoice_report.request_transfer_layout_custom">-->
+<!--                        <div class="page" style="font-family:arial" dir="ltr"  >-->
+<!--                            <div class="oe_structure"/>-->
+<!--                            <br/>-->
+<!--                            <br/>-->
+<!--                            <br/>-->
+<!--                            <div id="informations" >-->
+<!--                                <div class="row"  >-->
+<!--                                    <div class="col-2 offset-0">-->
+<!--                                        <strong style="white-space:nowrap">Invoice No:-->
+<!--                                        </strong>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-8 text-center">-->
+<!--                                        <span t-field="o.name"/>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-2 text-end">-->
+<!--                                        <strong style="white-space:nowrap">:-->
+<!--                                            :رقم الفاتوره-->
+<!--                                        </strong>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="row" >-->
+<!--                                    <div class="col-2 offset-0">-->
+<!--                                        <strong style="white-space:nowrap">Invoice Issue Date.-->
+<!--                                        </strong>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-8 text-center">-->
+<!--                                        <span t-field="o.invoice_date"/>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-2 text-end">-->
+<!--                                        <strong style="white-space:nowrap">:-->
+<!--                                           :تاريخ إصدار الفاتورة-->
+<!--                                        </strong>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="row" >-->
+<!--                                    <div class="col-2 offset-0">-->
+<!--                                        <strong style="white-space:nowrap">Date of Supply.-->
+<!--                                        </strong>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-8 text-center">-->
+<!--                                        <span t-field="o.l10n_sa_delivery_date"/>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-2 text-end">-->
+<!--                                        <strong style="white-space:nowrap">:-->
+<!--                                            :تاريخ التوريد-->
+<!--                                        </strong>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row " style="font-weight:bold;font-size:18px;color:white;background-color:#38b0d2">-->
+<!--                                <div class="col-12 text-center">-->
+<!--                                    <span >Supplier Details / بيانات المورد</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row" >-->
+<!--                                <div class="col-1 offset-0">-->
+<!--                                    <strong style="white-space:nowrap">Name.</strong>-->
+<!--                                </div>-->
+<!--                                <div class="col-3 text-center">-->
+<!--                                    <span t-field="o.company_id.name"/>-->
+<!--                                </div>-->
+<!--                                <div class="col-1 text-end">-->
+<!--                                    <strong style="white-space:nowrap">:اﻹسم</strong>-->
+<!--                                </div>-->
+<!--                                <div class="col-1"/>-->
+<!--                                <div class="col-1 offset-0"><strong style="white-space:nowrap">Vat No.</strong></div>-->
+<!--                                <div class="col-3 text-end"><span t-field="o.company_id.vat"/></div>-->
+<!--                                <div class="col-2 text-end" > <strong style="white-space:nowrap">:الرقم الضريبي</strong></div>-->
+<!--                            </div>-->
+<!--                            <div class="row" >-->
+<!--                                <div class="col-2 offset-0"><strong style="white-space:nowrap">Building No.</strong></div>-->
+<!--                                <div class="col-2 text-center"><span t-field="o.company_id.street2"/></div>-->
+<!--                                <div class="col-1 text-end" > <strong style="white-space:nowrap">:رقم المبني</strong></div>-->
+<!--                                <div class="col-1"/>-->
+<!--                                <div class="col-2 offset-0"><strong style="white-space:nowrap">CR Number.</strong></div>-->
+<!--                                <div class="col-2 text-center"><span t-field="o.company_id.company_registry"/></div>-->
+<!--                                <div class="col-2 text-end" > <strong style="white-space:nowrap">:رقم السجل التجاري</strong></div>-->
+<!--                            </div>-->
+<!--                            <div class="row" >-->
+<!--                                <div class="col-2 offset-0"><strong style="white-space:nowrap">Street Name.</strong></div>-->
+<!--                                <div class="col-2 text-center"><span t-field="o.company_id.street"/></div>-->
+<!--                                <div class="col-1 text-end" > <strong style="white-space:nowrap">:اسم الشارع</strong></div>-->
+<!--                                <div class="col-1"/>-->
+<!--                                <div class="col-1 offset-0"><strong style="white-space:nowrap">Country.</strong></div>-->
+<!--                                <div class="col-4 text-center"><span t-field="o.company_id.country_id"/></div>-->
+<!--                                <div class="col-1 text-end" > <strong style="white-space:nowrap">:الدولة</strong></div>-->
+<!--                            </div>-->
+<!--                            <div class="row" >-->
+<!--                                <div class="col-1 offset-0"><strong style="white-space:nowrap">District.</strong></div>-->
+<!--                                <div class="col-3 text-center"><span t-field="o.company_id.street"/></div>-->
+<!--                                <div class="col-1 text-end" > <strong style="white-space:nowrap">:الحي</strong></div>-->
+<!--                                <div class="col-1"/>-->
+<!--                                <div class="col-2 offset-0"><strong style="white-space:nowrap">Postal Code.</strong></div>-->
+<!--                                <div class="col-2 text-center"><span t-field="o.company_id.zip"/></div>-->
+<!--                                <div class="col-2 text-end" > <strong style="white-space:nowrap">:الرمز البريدي</strong></div>-->
+<!--                            </div>-->
+<!--                            <div class="row" >-->
+<!--                                <div class="col-1 offset-0"><strong style="white-space:nowrap">City.</strong></div>-->
+<!--                                <div class="col-3 text-center"><span t-field="o.company_id.city"/></div>-->
+<!--                                <div class="col-1 text-end" >  <strong style="white-space:nowrap">:المدينة</strong></div>-->
+<!--                                <div class="col-1"/>-->
+<!--                                <div class="col-2 text-left"></div>-->
+<!--                                <div class="col-2 text-center"></div>-->
+<!--                                <div class="col-2 text-right" > </div>-->
+<!--                            </div>-->
+<!--                            <div class="row " style="font-weight:bold;font-size:18px;color:white;background-color:#38b0d2">-->
+<!--                                <div class="col-12 text-center">-->
+<!--                                    <span >Client Details / بيانات العميل</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row" >-->
+<!--                                <div class="col-1 offset-0"><strong style="white-space:nowrap">Name.</strong></div>-->
+<!--                                <div class="col-3 text-center"><span t-field="o.partner_id.name"/></div>-->
+<!--                                <div class="col-1 text-end" > <strong style="white-space:nowrap">:الاسم</strong></div>-->
+<!--                                <div class="col-1"/>-->
+<!--                                <div class="col-2 offset-0"><strong style="white-space:nowrap">Vat No.</strong></div>-->
+<!--                                <div class="col-2 text-center"><span t-field="o.partner_id.vat"/></div>-->
+<!--                                <div class="col-2 text-end" > <strong style="white-space:nowrap">:الرقم الضريبي</strong></div>-->
+<!--                            </div>-->
+<!--                            <div class="row" >-->
+<!--                                <div class="col-1 offset-0"><strong style="white-space:nowrap"></strong></div>-->
+<!--                                <div class="col-3 text-center"></div>-->
+<!--                                <div class="col-1 text-end" > <strong style="white-space:nowrap"></strong></div>-->
+<!--                                <div class="col-1"/>-->
+<!--                                <div class="col-2 offset-0"><strong style="white-space:nowrap">Vat Group No.</strong></div>-->
+<!--                                <div class="col-2 text-center"><span t-field="o.partner_id.vat"/></div>-->
+<!--                                <div class="col-2 text-end" > <strong style="white-space:nowrap">:مجموعة الرقم الضريبي</strong></div>-->
+<!--                            </div>-->
+<!--                            <div class="row" >-->
+<!--                                <div class="col-1 offset-0"><strong style="white-space:nowrap">Address.</strong></div>-->
+<!--                                <div class="col-3 text-center"><span t-field="o.partner_id.state_id"/>,<span t-field="o.partner_id.city"/></div>-->
+<!--                                <div class="col-1 text-end" > <strong style="white-space:nowrap">:العنوان</strong></div>-->
+<!--                                <div class="col-1"/>-->
+<!--                                <div class="col-2 offset-0"><strong style="white-space:nowrap">CR Number.</strong></div>-->
+<!--                                <div class="col-2 text-center"><span t-field="o.partner_id.vat"/></div>-->
+<!--                                <div class="col-2 text-end" > <strong style="white-space:nowrap">:رقم السجل التجاري</strong></div>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                        <div class="row" dir="ltr">-->
+<!--                            <div class="col-6 offset-0"><span>.</span></div>-->
+<!--                            <div class="col-2 offset-0"><strong style="white-space:nowrap">Country.</strong></div>-->
+<!--                            <div class="col-2 text-center"><span t-field="o.partner_id.country_id"/></div>-->
+<!--                            <div class="col-2 text-end" > <strong style="white-space:nowrap">:الدولة</strong></div>-->
+<!--                        </div>-->
+<!--                        <div class="row" dir="ltr" >-->
+<!--                            <div class="col-6 offset-0"><span>.</span></div>-->
+<!--                            <div class="col-2 offset-0"><strong style="white-space:nowrap">Currency.</strong></div>-->
+<!--                            <div class="col-2 text-center"><span t-field="o.partner_id.currency_id"/></div>-->
+<!--                            <div class="col-2 text-end" > <strong style="white-space:nowrap">:العملة</strong></div>-->
+<!--                        </div>-->
+<!--                        <style>-->
+<!--                            .dashed-line {-->
+<!--                                  border: 1px dashed black;-->
+<!--                                }-->
+<!--                                }-->
+<!--                        </style>-->
+<!--                        <div class="row " >-->
+
+<!--                            <table width="100%" border="0" dir="ltr">-->
+<!--                                <thead style="font-weight:bold;font-size:12px;color:white;background-color:#38b0d2">-->
+<!--                                    <th class="text-center" style="vertical-align:middle">-->
+<!--                                        <span>Description</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>الوصف</span>-->
+<!--                                    </th>-->
+<!--                                    <th class="text-center" style="vertical-align:middle">-->
+<!--                                        <span>Unit Price</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>سعر الوحده</span>-->
+<!--                                    </th>-->
+<!--                                    <th class="text-center" style="vertical-align:middle">-->
+<!--                                        <span>Quantity</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>الكمية/الفترة</span>-->
+<!--                                    </th>-->
+<!--                                    <th class="text-center" style="vertical-align:middle">-->
+<!--                                        <span>Discount</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>خصومات</span>-->
+<!--                                    </th>-->
+<!--                                    <th class="text-center" style="vertical-align:middle">-->
+<!--                                        <span>Taxable Amount</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>المبلغ الخاضع للضريبة</span>-->
+<!--                                    </th>-->
+<!--                                    <th class="text-center" style="vertical-align:middle">-->
+<!--                                        <span>Tax Rate</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>نسبة الضريبة</span>-->
+<!--                                    </th>-->
+<!--                                    <th class="text-center" style="vertical-align:middle">-->
+<!--                                        <span>Tax Amount</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>مبلغ الضريبة</span>-->
+<!--                                    </th>-->
+<!--                                    <th class="text-center" style="vertical-align:middle">-->
+<!--                                        <span>Total Including VAT</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>المجموع شامل ضريبة</span>-->
+<!--                                        <br/>-->
+<!--                                        <span>القيمه المضافة</span>-->
+<!--                                    </th>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <t t-foreach="o.invoice_line_ids" t-as="line">-->
+<!--                                    <tr >-->
+<!--                                        <td class="text-center"><span t-field="line.product_id"/> </td>-->
+<!--                                        <td class="text-center"><span t-field="line.price_unit"/> </td>-->
+<!--                                        <td class="text-center"><span t-field="line.quantity"/> </td>-->
+<!--                                        <td class="text-center"><span t-esc="round(line.quantity*line.price_unit*line.discount/100,2)"/> </td>-->
+<!--                                        <td class="text-center"><span t-esc="round(line.price_subtotal,2)"/> </td>-->
+<!--                                        <td class="text-center">-->
+<!--                                            <span t-if="line.tax_ids" t-esc="line.tax_ids[0].amount"/>%-->
+<!--                                        </td>-->
+<!--                                        <td class="text-center"><span t-esc="round(line.price_total-line.price_subtotal,2)"/> </td>-->
+<!--                                        <td class="text-center"><span t-esc="round(line.price_total,2)"/> </td>-->
+<!--                                    </tr>-->
+
+<!--                                </t>-->
+<!--                                    <tr>-->
+<!--                                        <td colspan="8">-->
+<!--                                            <div class="dashed-line"></div>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td></td>-->
+<!--                                        <td class="text-center"><span>Total</span></td>-->
+<!--                                        <td><span></span></td>-->
+<!--                                        <td><span></span></td>-->
+<!--                                        <td class="text-center"><span t-esc="o.amount_untaxed" ></span><span  t-esc="o.currency_id.name"></span></td>-->
+<!--                                        <td><span></span></td>-->
+<!--                                        <td class="text-center"><span t-esc="o.amount_tax" ></span><span  t-esc="o.currency_id.name"/></td>-->
+<!--                                        <td class="text-center"><span t-esc="o.amount_total" ></span><span t-esc="o.currency_id.name"/></td>-->
+<!--                                    </tr>-->
+<!--                            </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                        <br/>-->
+<!--                        <div class="row" >-->
+<!--                            <div class="col-1 offset-0">-->
+<!--                                <strong style="white-space:nowrap"></strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-2 text-end">-->
+<!--                                <strong style="white-space:nowrap"></strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-6 text-center">-->
+<!--                                <strong style="font-weight:bold;white-space:nowrap">Local Currency</strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-3 text-end" > <strong style="white-space:nowrap"></strong></div>-->
+<!--                        </div>-->
+<!--                        <t t-set="discount" t-value="0"/>-->
+<!--                        <t t-foreach="o.invoice_line_ids" t-as="line">-->
+<!--                            <t t-set="discount" t-value="line.quantity*line.price_unit*line.discount/100"/>-->
+
+<!--                        </t>-->
+<!--                        <div class="row" style="padding-bottom:5px" >-->
+<!--                            <div class="col-1 offset-0">-->
+<!--                                <strong style="white-space:nowrap"></strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-2 offset-0">-->
+<!--                                <strong style="white-space:nowrap;font-size:15px" >Total Excluding VAT.</strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-6 text-center">-->
+<!--                                <div class="row" >-->
+<!--                                    <div class="col-3"/>-->
+<!--                                    <div class="col-6" style="border: 1px dashed black;">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-6 offset-0">-->
+<!--                                                <span>ريال سعودي</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-6 text-end">-->
+<!--                                                <span t-esc="o.amount_untaxed+discount"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-3"/>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-3 text-end" style="font-size:14px"> <strong style="white-space:nowrap">:الإجمالي غير شامل الضريبة</strong></div>-->
+<!--                        </div>-->
+<!--                        <div class="row" style="padding-bottom:5px">-->
+<!--                            <div class="col-1 offset-0">-->
+<!--                                <strong style="white-space:nowrap"></strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-2 offset-0">-->
+<!--                                <strong style="white-space:nowrap;font-size:15px">Discount.</strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-6 text-center">-->
+<!--                                <div class="row" >-->
+<!--                                    <div class="col-3"/>-->
+<!--                                    <div class="col-6" style="border: 1px dashed black;">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-6 offset-0">-->
+<!--                                                <span>ريال سعودي</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-6 text-end">-->
+<!--                                                <span t-esc="round(discount,2)"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-3"/>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-3 text-end" style=" font-size:14px" > <strong style="white-space:nowrap">:مجموع الخصومات</strong></div>-->
+<!--                        </div>-->
+<!--                        <div class="row" >-->
+<!--                            <div class="col-1 offset-0">-->
+<!--                                <strong style="white-space:nowrap"></strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-2 offset-0" >-->
+<!--                                <strong style="white-space:nowrap;font-size:15px">Total Taxable Amount <br/>(Excluding VAT).</strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-6 text-center">-->
+<!--                                <div class="row" >-->
+<!--                                    <div class="col-3"/>-->
+<!--                                    <div class="col-6" style="border: 1px dashed black;">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-6 offset-0">-->
+<!--                                                <span>ريال سعودي</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-6 text-end">-->
+<!--                                                <t t-set="discount" t-value="0"/>-->
+<!--                                                <t t-foreach="o.invoice_line_ids" t-as="line">-->
+<!--                                                    <t t-set="discount" t-value="line.quantity*line.price_unit*line.discount/100"/>-->
+
+<!--                                                </t>-->
+<!--                                                <span t-esc="o.amount_untaxed"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-3"/>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-3 text-end" style=" font-size:14px" > <strong style="white-space:nowrap">:إجمالي المبلغ بعد الخصومات <br/> غير شامل ض.ق.م</strong></div>-->
+<!--                        </div>-->
+<!--                        <div class="row"  style="padding-bottom:5px">-->
+
+<!--                            <div class="col-1 offset-0">-->
+<!--                                <strong style="white-space:nowrap"></strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-2 offset-0">-->
+<!--                                <strong style="white-space:nowrap;font-size:15px">Total VAT </strong> <span t-esc="', '.join(map(lambda x: (str(x.amount)), o.invoice_line_ids.mapped('tax_ids')))"/>-->
+<!--                            </div>-->
+<!--                            <div class="col-6 text-center">-->
+<!--                                <div class="row" >-->
+<!--                                    <div class="col-3"/>-->
+<!--                                    <div class="col-6" style="border: 1px dashed black;">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-6 offset-0">-->
+<!--                                                <span>ريال سعودي</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-6 text-end">-->
+
+<!--                                                <span t-esc="o.amount_tax"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-3"/>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-3 text-end" style=" font-size:14px"> <strong style="white-space:nowrap"><span t-esc="', '.join(map(lambda x: (str(x.amount)), o.invoice_line_ids.mapped('tax_ids')))"/>  مجموع ض.ق.م</strong></div>-->
+<!--                        </div>-->
+<!--                        <div class="row" style="padding-bottom:5px">-->
+
+<!--                            <div class="col-1 offset-0">-->
+<!--                                <strong style="white-space:nowrap"></strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-2 offset-0">-->
+<!--                                <strong style="white-space:nowrap;font-size:15px">Total Amount Due. </strong>-->
+<!--                            </div>-->
+<!--                            <div class="col-6 text-center">-->
+<!--                                <div class="row" >-->
+<!--                                    <div class="col-3"/>-->
+<!--                                    <div class="col-6" style="border: 1px dashed black;">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-6 offset-0">-->
+<!--                                                <span>ريال سعودي</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-6 text-end">-->
+
+<!--                                                <span t-esc="o.amount_total"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-3"/>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-3 text-end" style=" font-size:14px"> <strong style="white-space:nowrap"> :إجمالي المبلغ المستحق</strong></div>-->
+<!--                        </div>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-12" style="border:2px solid black">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-3"></div>-->
+<!--                                    <div class="col-3 offset-0" style="margin-top:5px;"><strong  style="white-space:nowrap;font-weight:bold">Bank Details</strong></div>-->
+<!--                                    <div class="col-2 offset-0" style="margin-top:5px;"><strong style="white-space:nowrap;font-weight:bold">تفاصيل البنك</strong></div>-->
+<!--                                    <div class="col-3"></div>-->
+<!--                                </div>-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-2 offset-0" style="margin-top:5px;margin-left:5px;"><strong style="white-space:nowrap">Bank Name:</strong></div>-->
+<!--                                    <div class="col-4"></div>-->
+<!--                                    <div class="col-4"></div>-->
+<!--                                    <div class="col-2 text-end" style="margin-top:5px;margin-right:5px;"><strong style="white-space:nowrap">:إسم البنك</strong></div>-->
+<!--                                </div>-->
+
+<!--                                <div class="row">-->
+<!--                                    <div class="col-2 offset-0" style="margin-top:5px;margin-left:5px;"><strong style="white-space:nowrap">IBAN No:</strong></div>-->
+<!--                                    <div class="col-4"></div>-->
+<!--                                    <div class="col-4"></div>-->
+<!--                                    <div class="col-2 text-end" style="margin-top:5px;;margin-right:5px;"><strong style="white-space:nowrap">:رقم الايبان</strong></div>-->
+<!--                                </div>-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-2 offset-0" style="margin-top:5px;;margin-left:5px;"><strong style="white-space:nowrap">SWIFT:</strong></div>-->
+<!--                                    <div class="col-4"></div>-->
+<!--                                    <div class="col-4"></div>-->
+<!--                                    <div class="col-2 text-end" style="margin-top:5px;margin-right:5px;"><strong style="white-space:nowrap">:سويفت</strong></div>-->
+<!--                                </div>-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-2 offset-0" style="margin-top:5px;margin-left:5px;"><strong style="white-space:nowrap">Account Name:</strong></div>-->
+<!--                                    <div class="col-4"></div>-->
+<!--                                    <div class="col-4"></div>-->
+<!--                                    <div class="col-2 text-end" style="margin-top:5px;margin-right:5px;"><strong style="white-space:nowrap">:إسم الحساب</strong></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
+
+<!--                </t>-->
+<!--            </t>-->
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <template id="request_transfer_layout_custom">
+            <div class="header" dir="ltr" >
+                <div class="row">
+                    <div class="col-4" style="margin-left:1px;">
+<!--                        <img t-if="o.l10n_sa_qr_code_str" style="display:block;max-height: 155px" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' %('QR', o.l10n_sa_qr_code_str, 250, 150)"/>-->
+                        <img t-if="o.l10n_sa_qr_code_str" style="display:block;" t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', quote_plus(o.l10n_sa_qr_code_str), 200, 200)"/>
+                    </div>
+                    <div class="col-4 text-center" style="vertical-align:middle;padding:50px;font-family:arial">
+                        <span style="font-size:24px;font-weight:bold;vertical-align:middle">فاتورة ضريبية</span>
+                        <br/>
+                        <span style="font-size:24px;font-weight:bold;vertical-align:middle">Tax Invoice</span>
+                    </div>
+                    <div class="col-4">
+                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                 style="height: 200px;width: 300px;"
+                                 />
+                    </div>
+                </div>
+
+
+            </div>
+            <br/>
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-out="0"/>
+            </div>
+            <div class="footer" >
+                <div class="text-center">
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page"/>
+                        of
+                        <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </template>
+
+
+
+    </data>
+</odoo>
