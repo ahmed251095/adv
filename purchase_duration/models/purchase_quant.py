@@ -18,4 +18,4 @@ class SaleOrderLineInheritTime(models.Model):
             line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)
             if line.duration:
                 line.price_unit = line.price_unit * line.duration
-                line.price_subtotal = float(line.price_unit) * float(product_uom_qty)
+                line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)
