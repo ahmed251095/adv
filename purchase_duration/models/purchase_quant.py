@@ -14,8 +14,8 @@ class SaleOrderLineInheritTime(models.Model):
         """
         super(SaleOrderLineInheritTime, self)._compute_amount()
         for line in self:
-            line.price_unit = line.product_id.list_price*line.product_uom_qty
-            line.price_subtotal = line.price_unit
+            line.price_unit = line.product_id.list_price
+            line.price_subtotal = line.price_unit*line.product_uom_qty
             if line.duration:
                 line.price_unit = line.price_unit * line.duration
-                line.price_subtotal = line.price_unit
+                line.price_subtotal = line.price_unit*product_uom_qty
