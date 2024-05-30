@@ -13,8 +13,7 @@ class SaleOrder(models.Model):
         for order in self:
             amount_discount = 0.0
             for line in order.order_line:
-                line.amount_discount = (
-                                               line.product_uom_qty * line.price_unit) * (100 - line.discount) / 100
+                line.amount_discount = (line.product_uom_qty * line.price_unit) * (100 - line.discount) / 100
 
             order.update({
                 'amount_discount': amount_discount,
@@ -43,7 +42,7 @@ class SaleOrderLineInheritTime(models.Model):
             line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)
             if line.duration:
                 line.price_unit = line.price_unit * line.duration
-                line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)
+                line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)*(100-line.discount)/100
                 line.amount_discount = (
                                        line.product_uom_qty * line.price_unit) *(100-line.discount)/100
 
