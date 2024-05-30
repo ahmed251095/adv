@@ -73,6 +73,11 @@
                                     style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                     الكمية
                                 </th>
+
+                                <th name="th_duration"
+                                    style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                     المده
+                                </th>
                                 <th name="th_priceunit"
                                     style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                     سعر الوحدة
@@ -117,6 +122,10 @@
                                             style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-field="line.product_uom_qty"/>
                                         </td>
+                                        <td name="td_duration"
+                                            style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
+                                            <span t-field="line.duration"/>
+                                        </td>
                                         <td name="td_priceunit"
                                             style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                                             <span t-field="line.price_unit"/>
@@ -127,7 +136,7 @@
                                             <span t-field="line.discount"/>%
                                         </td>
                                         <td style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
-                                            <span t-esc="line.price_unit - (line.price_unit * (line.discount /100))"/>
+                                            <span t-esc="line.amount_discount"/>
                                         </td>
                                         <td t-if="not line.is_downpayment" name="td_subtotal"
                                             class="text-end o_price_total"
@@ -179,7 +188,7 @@
                                         <td class="text-end">
                                             <span
                                                     t-att-class="oe_subtotal_footer_separator"
-                                                    t-esc="doc.amount_untaxed"
+                                                    t-esc="doc.amount_discount"
                                             />
                                         </td>
                                         <td align="right">

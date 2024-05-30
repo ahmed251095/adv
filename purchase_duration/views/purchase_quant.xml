@@ -9,6 +9,23 @@
                 <xpath expr="//field[@name='order_line']//tree//field[@name='product_packaging_qty']" position="after">
                     <field name="duration"/>
                     <field name="product_price"/>
+                                                        <field name="amount_discount"/>
+
+                </xpath>
+                                <xpath expr="//group[@name='note_group']" position="inside">
+                                    <field name="amount_discount"/>
+
+                                </xpath>
+            </field>
+        </record>
+         <record id="view_order_form_inherit_account_duration" model="ir.ui.view">
+            <field name="name">account.order.form.acount.duration</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='quantity']" position="after">
+                    <field name="duration"/>
+                    <field name="product_price"/>
                 </xpath>
             </field>
         </record>
