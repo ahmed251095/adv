@@ -188,7 +188,7 @@
                                         <td class="text-end">
                                             <span
                                                     t-att-class="oe_subtotal_footer_separator"
-                                                    t-esc="doc.amount_discount"
+                                                    t-esc="doc.amount_untaxed"
                                             />
                                         </td>
                                         <td align="right">
