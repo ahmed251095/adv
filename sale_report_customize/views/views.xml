@@ -128,7 +128,7 @@
                                         </td>
                                         <td name="td_priceunit"
                                             style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
-                                            <span t-field="line.price_unit"/>
+                                            <span t-field="line.product_price"/>
                                         </td>
                                         <td t-if="display_discount"
                                             groups="product.group_discount_per_so_line"
