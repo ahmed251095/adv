@@ -13,9 +13,9 @@ class SaleOrder(models.Model):
         for order in self:
             amount_discount = 0.0
             for line in order.order_line:
+                line.amount_discount = (
+                                               line.product_uom_qty * line.price_unit) * (100 - line.discount) / 100
 
-                amount_discount += (
-                                           line.product_uom_qty * line.price_unit * line.discount) / 100
             order.update({
                 'amount_discount': amount_discount,
 
@@ -45,7 +45,7 @@ class SaleOrderLineInheritTime(models.Model):
                 line.price_unit = line.price_unit * line.duration
                 line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)
                 line.amount_discount = (
-                                       line.product_uom_qty * line.price_unit * line.discount) / 100
+                                       line.product_uom_qty * line.price_unit) *(100-line.discount)/100
 
     def _prepare_invoice_line(self, **optional_values):
         res = super(SaleOrderLineInheritTime, self)._prepare_invoice_line()
