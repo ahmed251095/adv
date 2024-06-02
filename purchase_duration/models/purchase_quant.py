@@ -25,7 +25,7 @@ class SaleOrderLineInheritTime(models.Model):
     _inherit = "sale.order.line"
 
     duration = fields.Float(string="المدة",default=1)
-    product_price = fields.Float(related='product_id.list_price')
+    product_price = fields.Float(related='product_id.list_price',readonly=False)
     amount_discount = fields.Monetary(string='Discount', store=True,
                                       readonly=True, compute='_compute_amount')
 
