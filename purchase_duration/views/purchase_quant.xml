@@ -9,8 +9,8 @@
                 <xpath expr="//field[@name='order_line']//tree//field[@name='product_packaging_qty']" position="after">
                     <field name="duration"/>
                     <field name="product_price"/>
-                                                        <field name="amount_discount"/>
-
+<!--                                                         <field name="amount_discount"/>
+ -->
                 </xpath>
                                 <xpath expr="//group[@name='note_group']" position="inside">
                                     <field name="amount_discount"/>
