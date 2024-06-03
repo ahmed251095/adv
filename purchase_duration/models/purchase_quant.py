@@ -29,7 +29,7 @@ class SaleOrderLineInheritTime(models.Model):
     amount_discount = fields.Monetary(string='Discount', store=True,
                                       readonly=True, compute='_compute_amount')
 
-    @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id','duration')
+    @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id','duration','product_price')
     def _compute_amount(self):
         """
         Compute the amounts of the SO line.
@@ -40,8 +40,9 @@ class SaleOrderLineInheritTime(models.Model):
         for line in self:
             line.price_unit = line.product_id.list_price
             line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)
-            if line.duration:
-                line.price_unit = line.price_unit * line.duration
+            if line.duration or line.product_price:
+                
+                line.price_unit = line.product_price * line.duration
                 line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)*(100-line.discount)/100
                 line.amount_discount = (
                                        line.product_uom_qty * line.price_unit) *(100-line.discount)/100
