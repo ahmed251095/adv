@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']//tree//field[@name='product_packaging_qty']" position="after">
                     <field name="duration"/>
-                    <field name="product_price"/>
+                    <field name="product_price" invisible="1"/>
 <!--                                                         <field name="amount_discount"/>
  -->
                 </xpath>
