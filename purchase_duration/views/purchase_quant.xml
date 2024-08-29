@@ -25,7 +25,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='quantity']" position="after">
                     <field name="duration"/>
-                    <field name="product_price"/>
+                    <field name="product_price" invisible="1"/>
                 </xpath>
             </field>
         </record>

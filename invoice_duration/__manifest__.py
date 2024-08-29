@@ -5,7 +5,7 @@
     "website": "https://github.com/OCA/stock-logistics-availability",
     "development_status": "Production/Stable",
     "category": "Warehouse",
-    "depends": ["sale","purchase_duration"],
+    "depends": ["sale","purchase_duration",'account'],
     "license": "AGPL-3",
     "data": [
         "views/invoice_duration.xml",

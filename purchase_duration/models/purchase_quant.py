@@ -64,7 +64,7 @@ class SaleOrderLineInheritTime(models.Model):
             discount=self.discount,
             price_subtotal=self.price_subtotal,
         )
-    
+
     def _prepare_invoice_line(self, **optional_values):
         res = super(SaleOrderLineInheritTime, self)._prepare_invoice_line()
         res.update({'duration': self.duration,
