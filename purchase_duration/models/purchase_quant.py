@@ -37,35 +37,34 @@ class SaleOrderLineInheritTime(models.Model):
         """
         amount_discount = 0.0
         super(SaleOrderLineInheritTime, self)._compute_amount()
-        for line in self:
-            # line.price_unit = line.product_id.list_price
-            # line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)
-            # if line.duration or line.product_price:
+        # for line in self:
+        #     line.price_unit = line.product_id.list_price
+        #     line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)
+        #     if line.duration or line.product_price:
+        #         line.price_unit = line.product_price * line.duration
+        #         # price_unit = line.price_unit * line.duration
+        #         line.price_subtotal = float(line.price_unit) * float(line.product_uom_qty)*(100-line.discount)/100
+        #         line.amount_discount = (
+        #                                line.product_uom_qty * line.price_unit) *(100-line.discount)/100
+    def _convert_to_tax_base_line_dict(self):
+        """ Convert the current record to a dictionary in order to use the generic taxes computation method
+        defined on account.tax.
 
-            if line.duration :
-
-                # line.price_unit = line.product_price * line.duration
-                price_unit = line.price_unit * line.duration
-                line.price_subtotal = float(price_unit) * float(line.product_uom_qty)*(100-line.discount)/100
-                line.amount_discount = (
-                                       line.product_uom_qty * price_unit) *(100-line.discount)/100
-
-    # @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
-    # def _compute_amount(self):
-    #     """
-    #     Compute the amounts of the SO line.
-    #     """
-    #     for line in self:
-    #         tax_results = self.env['account.tax']._compute_taxes([line._convert_to_tax_base_line_dict()])
-    #         totals = list(tax_results['totals'].values())[0]
-    #         amount_untaxed = totals['amount_untaxed']
-    #         amount_tax = totals['amount_tax']
-    #
-    #         line.update({
-    #             'price_subtotal': amount_untaxed,
-    #             'price_tax': amount_tax,
-    #             'price_total': amount_untaxed + amount_tax,
-    #         })
+        :return: A python dictionary.
+        """
+        self.ensure_one()
+        return self.env['account.tax']._convert_to_tax_base_line_dict(
+            self,
+            partner=self.order_id.partner_id,
+            currency=self.order_id.currency_id,
+            product=self.product_id,
+            taxes=self.tax_id,
+            price_unit=self.price_unit * self.duration if self.duration else  self.price_unit,
+            quantity=self.product_uom_qty,
+            discount=self.discount,
+            price_subtotal=self.price_subtotal,
+        )
+    
     def _prepare_invoice_line(self, **optional_values):
         res = super(SaleOrderLineInheritTime, self)._prepare_invoice_line()
         res.update({'duration': self.duration,
