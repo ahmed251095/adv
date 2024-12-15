@@ -2,6 +2,14 @@ from odoo import models, fields, api,_
 from odoo.exceptions import UserError
 
 
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+    property_account_creditor_price_difference = fields.Many2one(
+        'account.account', string="Price Difference Account", company_dependent=True,
+        help="This account is used in automated inventory valuation to " \
+             "record the price difference between a purchase order and its related vendor bill when validating this vendor bill.")
+
+
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 

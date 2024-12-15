@@ -19,15 +19,16 @@ class AccountMove(models.Model):
 
     @api.onchange("discount_method", "discount_amount", "amount_untaxed")
     def onchange_on_total_discount(self):
-        if self.state == "draft":
-            if self.discount_amount and self.discount_method:
-                if self.amount_untaxed:
-                    self.total_discount = self.count_total_discount()
-                    self.amount_total = (self.amount_untaxed + self.amount_tax) - self.total_discount
+        for rec in self:
+            if rec.state == "draft":
+                if rec.discount_amount and rec.discount_method:
+                    if rec.amount_untaxed:
+                        rec.total_discount = rec.count_total_discount()
+                        rec.amount_total = (rec.amount_untaxed + rec.amount_tax) - rec.total_discount
+                    else:
+                        rec.total_discount = 0.0
                 else:
-                    self.total_discount = 0.0
-            else:
-                self.total_discount = 0.0
+                    rec.total_discount = 0.0
 
     @api.depends('line_ids.debit',
                  'line_ids.credit',
@@ -51,12 +52,12 @@ class AccountMove(models.Model):
 
     def count_total_discount(self):
         amount = 0
-        if self.discount_amount and self.discount_method:
-            if self.discount_method == "fixed":
-                amount = self.discount_amount
-
-            else:
-                amount = round((self.discount_amount * self.amount_untaxed) / 100, 2)
+        for rec in self:
+            if rec.discount_amount and rec.discount_method:
+                if rec.discount_method == "fixed":
+                    amount = rec.discount_amount
+                else:
+                    amount = round((rec.discount_amount * rec.amount_untaxed) / 100, 2)
         return amount
 
     @api.depends("discount_method", "discount_amount", "amount_untaxed")
@@ -69,11 +70,12 @@ class AccountMove(models.Model):
 
     def write(self, vals):
         res = super(AccountMove, self).write(vals)
-        if self.discount_method == 'fixed':
-            if self.discount_amount > self.amount_total:
-                raise UserError(_('You can not add more then amount in fix rate'))
-        if self.discount_method == 'percentage':
-            if self.discount_amount > 100 or  self.discount_amount < 0:
-                raise UserError(_('You can not add value less then 0 and grater then 100'))
+        for rec in self:
+            if rec.discount_method == 'fixed':
+                if rec.discount_amount > rec.amount_total:
+                    raise UserError(_('You can not add more then amount in fix rate'))
+            if rec.discount_method == 'percentage':
+                if rec.discount_amount > 100 or  rec.discount_amount < 0:
+                    raise UserError(_('You can not add value less then 0 and grater then 100'))
 
         return res
