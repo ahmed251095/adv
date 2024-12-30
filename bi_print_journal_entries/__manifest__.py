@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
+
 {
     'name': 'Print Journal Entries Report in Odoo',
     'version': '16.0.0.2',
